@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    data-username: sa
+    data-password:
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+  h2:
+  console:
+         enabled: true
+
+server:
+  port: 8081
+  profiles:
+    active: local
+  kafka:
+    template:
+      default-topic: library-events
+    consumer:
+      bootstrap-servers: localhost:9092,localhost:9093
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeSerializer
+      group-id: library-events-listener-group
+    admin:
+      properties:
+        bootstrap.servers: localhost:9092,localhost:9093
